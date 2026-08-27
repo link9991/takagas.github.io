@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taka Gás Refrigeração</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#ffffff;
+    --ice:#eef6fd;
+    --ice-2:#dcedfb;
+    --blue-deep:#08284a;
+    --blue-navy:#0b3d68;
+    --blue-primary:#125ea8;
+    --blue-bright:#2f9bff;
+    --blue-line:#bcdcf8;
+    --text:#0c2338;
+    --text-soft:#4c6377;
+    --radius:4px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', sans-serif;
+    color:var(--text);
+    background:var(--white);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    color:var(--blue-deep);
+    line-height:1.12;
+  }
+  .mono{
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.02em;
+  }
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  img,svg{display:block; max-width:100%;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--blue-primary);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:2px;
+    background:var(--blue-bright);
+    display:inline-block;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 26px;
+    border-radius:var(--radius);
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    font-size:14.5px;
+    font-weight:600;
+    border:1.5px solid transparent;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
+  }
+  .btn-primary{background:var(--blue-bright); color:var(--white);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px -8px rgba(47,155,255,.6);}
+  .btn-ghost{border-color:var(--blue-line); color:var(--blue-deep);}
+  .btn-ghost:hover{border-color:var(--blue-bright); color:var(--blue-bright);}
+  .btn-ghost.on-dark{border-color:rgba(255,255,255,.35); color:var(--white);}
+  .btn-ghost.on-dark:hover{border-color:var(--white);}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{outline:2px solid var(--blue-bright); outline-offset:3px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--ice-2);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 0;
+  }
+  .logo{
+    display:flex; align-items:baseline; gap:8px;
+    font-family:'Oswald', sans-serif;
+    font-weight:700;
+    font-size:21px;
+    color:var(--blue-deep);
+  }
+  .logo span{color:var(--blue-bright);}
+  .logo small{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    color:var(--text-soft);
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-weight:500;
+  }
+  .navlinks{display:flex; gap:34px; font-size:14.5px; font-weight:500;}
+  .navlinks a{color:var(--text-soft); transition:color .15s;}
+  .navlinks a:hover{color:var(--blue-primary);}
+  .navcta{display:flex; align-items:center; gap:16px;}
+  .navphone{display:flex; flex-direction:column; align-items:flex-end; font-size:12.5px; color:var(--text-soft);}
+  .navphone strong{font-family:'JetBrains Mono',monospace; font-size:15px; color:var(--blue-deep);}
+  .hamburger{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(180deg, var(--white) 0%, var(--ice) 100%);
+    padding:88px 0 70px;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:50px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(38px, 5.2vw, 62px);
+    margin-bottom:22px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--blue-bright);
+  }
+  .hero p{
+    font-size:17px;
+    color:var(--text-soft);
+    max-width:480px;
+    margin-bottom:32px;
+  }
+  .hero-actions{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:34px;}
+  .hero-badges{display:flex; gap:28px; flex-wrap:wrap;}
+  .hero-badge{font-size:12.5px; color:var(--text-soft); display:flex; align-items:center; gap:8px;}
+  .hero-badge svg{width:16px; height:16px; stroke:var(--blue-primary);}
+
+  /* Pressure gauge visual */
+  .gauge-wrap{position:relative; display:flex; justify-content:center;}
+  .gauge-card{
+    background:var(--blue-deep);
+    border-radius:10px;
+    padding:38px 30px 30px;
+    width:100%;
+    max-width:400px;
+    box-shadow:0 30px 60px -20px rgba(8,40,74,.45);
+    position:relative;
+  }
+  .gauge-card::before{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:10px;
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,.035) 0 2px, transparent 2px 14px);
+    pointer-events:none;
+  }
+  .gauge-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:22px;}
+  .gauge-top .mono{color:var(--blue-bright); font-size:11.5px; letter-spacing:.14em;}
+  .gauge-top .status{
+    display:flex; align-items:center; gap:6px;
+    font-family:'JetBrains Mono',monospace; font-size:11px; color:#8fd6a8;
+  }
+  .gauge-top .status i{width:7px; height:7px; border-radius:50%; background:#3ee085; display:inline-block; animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:.35;}}
+
+  .dial{width:100%; height:auto;}
+  .dial-needle{transform-origin:150px 150px; animation:sweep 4.5s ease-in-out infinite;}
+  @keyframes sweep{
+    0%{transform:rotate(-58deg);}
+    50%{transform:rotate(46deg);}
+    100%{transform:rotate(-58deg);}
+  }
+  .gauge-readout{display:flex; justify-content:space-between; margin-top:20px; padding-top:18px; border-top:1px solid rgba(255,255,255,.12);}
+  .gauge-readout div{flex:1;}
+  .gauge-readout .k{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#7ea6c9; letter-spacing:.08em; margin-bottom:4px;}
+  .gauge-readout .v{font-family:'JetBrains Mono',monospace; font-size:16px; color:var(--white); font-weight:600;}
+
+  /* ---------- SERVICES ---------- */
+  section{padding:96px 0;}
+  .section-head{
+    max-width:640px;
+    margin-bottom:56px;
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .section-head h2{font-size:clamp(28px,3.6vw,40px); margin-bottom:16px;}
+  .section-head p{color:var(--text-soft); font-size:16px;}
+
+  .services{background:var(--white);}
+  .service-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--ice-2);
+    border:1px solid var(--ice-2);
+  }
+  .service-card{
+    background:var(--white);
+    padding:34px 30px;
+    opacity:0;
+    transform:translateY(28px);
+    transition:background .2s ease, opacity .7s ease, transform .7s ease;
+  }
+  .service-card:hover{background:var(--ice);}
+  .service-num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    color:var(--blue-bright);
+    margin-bottom:18px;
+    display:block;
+  }
+  .service-icon{width:34px; height:34px; stroke:var(--blue-primary); fill:none; stroke-width:1.6; margin-bottom:18px;}
+  .service-card h3{font-size:17px; margin-bottom:10px; letter-spacing:.01em;}
+  .service-card p{font-size:14.5px; color:var(--text-soft);}
+
+  /* ---------- CYCLE DIAGRAM (signature) ---------- */
+  .cycle{background:var(--blue-deep); color:var(--white); position:relative; overflow:hidden;}
+  .cycle::after{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 85% 15%, rgba(47,155,255,.18), transparent 45%),
+      radial-gradient(circle at 10% 90%, rgba(47,155,255,.12), transparent 40%);
+    pointer-events:none;
+  }
+  .cycle .section-head h2, .cycle .eyebrow{color:var(--white);}
+  .cycle .eyebrow{color:#8fc8ff;}
+  .cycle .eyebrow::before{background:var(--blue-bright);}
+  .cycle .section-head p{color:#a8c4dc;}
+  .cycle-body{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; position:relative;}
+  .cycle-diagram{
+    width:100%;
+    height:auto;
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .cycle-steps{display:flex; flex-direction:column; gap:22px;}
+  .cycle-step{
+    display:flex;
+    gap:18px;
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .cycle-steps .cycle-step:nth-child(2){transition-delay:.1s;}
+  .cycle-steps .cycle-step:nth-child(3){transition-delay:.2s;}
+  .cycle-steps .cycle-step:nth-child(4){transition-delay:.3s;}
+  .cycle-step .n{
+    font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--blue-bright);
+    width:32px; flex-shrink:0; padding-top:2px;
+  }
+  .cycle-step h4{color:var(--white); font-size:16px; margin-bottom:6px; letter-spacing:.02em;}
+  .cycle-step p{color:#a8c4dc; font-size:14px;}
+
+  /* ---------- GASES ---------- */
+  .gases{background:var(--ice);}
+  .gas-list{display:grid; grid-template-columns:repeat(5,1fr); gap:14px;}
+  .gas-chip{
+    background:var(--white);
+    border:1px solid var(--ice-2);
+    border-radius:6px;
+    padding:22px 18px;
+    text-align:center;
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .gas-list .gas-chip:nth-child(2){transition-delay:.08s;}
+  .gas-list .gas-chip:nth-child(3){transition-delay:.16s;}
+  .gas-list .gas-chip:nth-child(4){transition-delay:.24s;}
+  .gas-list .gas-chip:nth-child(5){transition-delay:.32s;}
+  .gas-chip .code{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:600; font-size:19px;
+    color:var(--blue-deep);
+    display:block; margin-bottom:8px;
+  }
+  .gas-chip .use{font-size:12.5px; color:var(--text-soft);}
+
+  /* ---------- CTA BANNER ---------- */
+  .banner{
+    background:linear-gradient(120deg, var(--blue-primary), var(--blue-bright));
+    padding:56px 0;
+  }
+  .banner .wrap{display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap;}
+  .banner h3{color:var(--white); font-size:clamp(22px,3vw,30px); max-width:560px;}
+  .banner p{color:rgba(255,255,255,.85); font-size:14.5px; margin-top:8px;}
+  .banner .btn-primary{background:var(--white); color:var(--blue-deep);}
+  .banner .btn-primary:hover{box-shadow:0 10px 24px -8px rgba(0,0,0,.25);}
+
+  /* ---------- CONTACT ---------- */
+  .contact{background:var(--white);}
+  .contact-grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:60px;}
+  .info-block{display:flex; gap:16px; margin-bottom:28px;}
+  .info-block svg{width:20px; height:20px; stroke:var(--blue-primary); flex-shrink:0; margin-top:2px;}
+  .info-block .k{font-family:'Oswald',sans-serif; font-size:13.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--blue-deep); margin-bottom:4px;}
+  .info-block .v{font-size:14.5px; color:var(--text-soft);}
+  .hours{border-top:1px solid var(--ice-2); margin-top:24px; padding-top:24px;}
+  .hours-row{display:flex; justify-content:space-between; font-size:14px; padding:6px 0; color:var(--text-soft);}
+  .hours-row span:last-child{font-family:'JetBrains Mono',monospace; color:var(--blue-deep);}
+
+  form{background:var(--ice); border:1px solid var(--ice-2); border-radius:8px; padding:36px;}
+  .field{margin-bottom:18px;}
+  .field label{display:block; font-size:12.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--blue-deep); font-weight:600; margin-bottom:8px;}
+  .field input, .field select, .field textarea{
+    width:100%;
+    padding:12px 14px;
+    border:1px solid var(--ice-2);
+    border-radius:5px;
+    font-family:'Inter',sans-serif;
+    font-size:14.5px;
+    background:var(--white);
+    color:var(--text);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{outline:2px solid var(--blue-bright); outline-offset:1px; border-color:transparent;}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  form .btn-primary{width:100%; justify-content:center; margin-top:6px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--blue-deep); color:#8fa9c2; padding:56px 0 28px;}
+  .footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; margin-bottom:44px;}
+  .footer-logo{font-family:'Oswald',sans-serif; font-weight:700; font-size:20px; color:var(--white); margin-bottom:14px;}
+  .footer-logo span{color:var(--blue-bright);}
+  footer p{font-size:13.5px; max-width:280px; line-height:1.6;}
+  footer h5{color:var(--white); font-family:'Oswald',sans-serif; font-size:13px; letter-spacing:.06em; text-transform:uppercase; margin-bottom:16px;}
+  footer ul li{margin-bottom:10px; font-size:13.5px;}
+  footer ul li a:hover{color:var(--white);}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.1); padding-top:24px; display:flex; justify-content:space-between; font-size:12.5px; flex-wrap:wrap; gap:12px;}
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .contact-grid > div,
+  .contact-grid > form,
+  .banner .wrap > div,
+  .footer-grid > div{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .footer-grid > div:nth-child(2){transition-delay:.08s;}
+  .footer-grid > div:nth-child(3){transition-delay:.16s;}
+  .footer-grid > div:nth-child(4){transition-delay:.24s;}
+
+  .section-head.in-view,
+  .service-card.in-view,
+  .gas-chip.in-view,
+  .cycle-step.in-view,
+  .cycle-diagram.in-view,
+  .contact-grid > div.in-view,
+  .contact-grid > form.in-view,
+  .banner .wrap > div.in-view,
+  .footer-grid > div.in-view{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .navlinks{display:none;}
+    .navphone{display:none;}
+    .hero-grid{grid-template-columns:1fr;}
+    .gauge-wrap{order:-1;}
+    .service-grid{grid-template-columns:repeat(2,1fr);}
+    .cycle-body{grid-template-columns:1fr; gap:40px;}
+    .gas-list{grid-template-columns:repeat(3,1fr);}
+    .contact-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 20px;}
+    section{padding:64px 0;}
+    .service-grid{grid-template-columns:1fr;}
+    .gas-list{grid-template-columns:repeat(2,1fr);}
+    .field-row{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .banner .wrap{flex-direction:column; align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">TAKA <span>GÁS</span>
+      <small>&nbsp;Refrigeração</small>
+    </div>
+    <nav class="navlinks">
+      <a href="#servicos">Serviços</a>
+      <a href="#ciclo">Como funciona</a>
+      <a href="#gases">Gases</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="navcta">
+      <div class="navphone">
+        <span>Plantão 24h</span>
+        <strong>(62) 9 8513-3636</strong>
+      </div>
+      <a href="#contato" class="btn btn-primary">Pedir orçamento</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" style="padding-top:88px;">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Recarga &amp; manutenção de refrigeração</div>
+        <h1>O frio certo,<br>na <em>pressão</em> certa.</h1>
+        <p>Recarga de gás, instalação e manutenção de ar-condicionado e refrigeração comercial. Técnicos certificados, diagnóstico com manômetro na primeira visita e sem gambiarra.</p>
+        <div class="hero-actions">
+          <a href="#contato" class="btn btn-primary">
+            Solicitar visita técnica
+          </a>
+          <a href="#servicos" class="btn btn-ghost">Ver serviços</a>
+        </div>
+        <div class="hero-badges">
+          <div class="hero-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 2v20M4 7l8-5 8 5M4 17l8 5 8-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Atendimento residencial e comercial
+          </div>
+          <div class="hero-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 22c4-4 7-7.6 7-12a7 7 0 10-14 0c0 4.4 3 8 7 12z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Teste de vazamento incluso
+          </div>
+        </div>
+      </div>
+
+      <div class="gauge-wrap">
+        <div class="gauge-card">
+          <div class="gauge-top">
+            <span class="mono">MANÔMETRO · LINHA DE SUCÇÃO</span>
+            <span class="status"><i></i>EM OPERAÇÃO</span>
+          </div>
+          <svg class="dial" viewBox="0 0 300 190">
+            <path d="M40 160 A110 110 0 0 1 260 160" fill="none" stroke="#123a5e" stroke-width="14" stroke-linecap="round"/>
+            <path d="M40 160 A110 110 0 0 1 150 50" fill="none" stroke="#1f6fb3" stroke-width="14" stroke-linecap="round"/>
+            <path d="M150 50 A110 110 0 0 1 260 160" fill="none" stroke="#2f9bff" stroke-width="14" stroke-linecap="round"/>
+            <g class="dial-needle">
+              <line x1="150" y1="160" x2="150" y2="62" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="150" cy="160" r="8" fill="#ffffff"/>
+            </g>
+            <text x="150" y="185" text-anchor="middle" fill="#7ea6c9" font-family="JetBrains Mono" font-size="11">bar</text>
+          </svg>
+          <div class="gauge-readout">
+            <div>
+              <div class="k">PRESSÃO</div>
+              <div class="v">6.8 bar</div>
+            </div>
+            <div>
+              <div class="k">TEMP. EVAP.</div>
+              <div class="v">4.2 °C</div>
+            </div>
+            <div>
+              <div class="k">GÁS</div>
+              <div class="v">R-410A</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="servicos">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">O que fazemos</div>
+        <h2>Serviços de refrigeração</h2>
+        <p>De um split residencial a uma câmara fria comercial — cada visita começa com medição, não com achismo.</p>
+      </div>
+
+      <div class="service-grid">
+        <div class="service-card">
+          <span class="service-num">01</span>
+          <svg class="service-icon" viewBox="0 0 24 24"><path d="M12 2v20M4.5 5.5l15 13M19.5 5.5l-15 13M2 12h20" stroke-linecap="round"/></svg>
+          <h3>Recarga de gás refrigerante</h3>
+          <p>Recarga com teste de vazamento por pressão antes e depois, evitando prejuízo em poucos meses.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">02</span>
+          <svg class="service-icon" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="7" rx="1"/><path d="M7 13v3M12 13v5M17 13v3" stroke-linecap="round"/></svg>
+          <h3>Instalação de ar-condicionado</h3>
+          <p>Split, multi-split e VRF, com dimensionamento correto de BTUs e tubulação para a sua obra.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">03</span>
+          <svg class="service-icon" viewBox="0 0 24 24"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4L12 3z"/><path d="M5 19h14" stroke-linecap="round"/></svg>
+          <h3>Manutenção preventiva</h3>
+          <p>Limpeza de serpentina e filtros, verificação de pressão e capacitores em rotina programada.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">04</span>
+          <svg class="service-icon" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M4 11h16M9 3v18M9 15h4" stroke-linecap="round"/></svg>
+          <h3>Refrigeração comercial</h3>
+          <p>Câmaras frias, freezers, balcões e expositores — instalação e manutenção para o seu negócio.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">05</span>
+          <svg class="service-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3" stroke-linecap="round"/></svg>
+          <h3>Diagnóstico e reparo</h3>
+          <p>Identificação da falha real: compressor, placa, capacitor ou vazamento — sem trocar peça no escuro.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">06</span>
+          <svg class="service-icon" viewBox="0 0 24 24"><path d="M12 2L3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7l-9-5z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Atendimento de emergência</h3>
+          <p>Câmara fria parada não espera. Plantão para comércios com estoque refrigerado em risco.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CYCLE (signature element) -->
+  <section class="cycle" id="ciclo">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Por dentro do sistema</div>
+        <h2>O ciclo que sua instalação depende</h2>
+        <p>É esse circuito que verificamos em cada visita — se um ponto falha, o sistema inteiro perde eficiência.</p>
+      </div>
+
+      <div class="cycle-body">
+        <svg class="cycle-diagram" viewBox="0 0 400 400">
+          <path id="cyclepath" d="M200 60 A140 140 0 1 1 199 60" fill="none" stroke="#154572" stroke-width="2" stroke-dasharray="3 7"/>
+          <circle cx="200" cy="60" r="30" fill="#0b3d68" stroke="#2f9bff" stroke-width="1.5"/>
+          <text x="200" y="56" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="10">COMP.</text>
+          <text x="200" y="69" text-anchor="middle" fill="#8fc8ff" font-family="JetBrains Mono" font-size="8">01</text>
+
+          <circle cx="340" cy="200" r="30" fill="#0b3d68" stroke="#2f9bff" stroke-width="1.5"/>
+          <text x="340" y="196" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="10">COND.</text>
+          <text x="340" y="209" text-anchor="middle" fill="#8fc8ff" font-family="JetBrains Mono" font-size="8">02</text>
+
+          <circle cx="200" cy="340" r="30" fill="#0b3d68" stroke="#2f9bff" stroke-width="1.5"/>
+          <text x="200" y="336" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="9">VÁLVULA</text>
+          <text x="200" y="349" text-anchor="middle" fill="#8fc8ff" font-family="JetBrains Mono" font-size="8">03</text>
+
+          <circle cx="60" cy="200" r="30" fill="#0b3d68" stroke="#2f9bff" stroke-width="1.5"/>
+          <text x="60" y="196" text-anchor="middle" fill="#fff" font-family="JetBrains Mono" font-size="10">EVAP.</text>
+          <text x="60" y="209" text-anchor="middle" fill="#8fc8ff" font-family="JetBrains Mono" font-size="8">04</text>
+
+          <circle r="4" fill="#2f9bff">
+            <animateMotion dur="6s" repeatCount="indefinite" path="M200 60 A140 140 0 1 1 199 60"/>
+          </circle>
+          <circle r="4" fill="#7ec8ff" opacity="0.6">
+            <animateMotion dur="6s" begin="-3s" repeatCount="indefinite" path="M200 60 A140 140 0 1 1 199 60"/>
+          </circle>
+        </svg>
+
+        <div class="cycle-steps">
+          <div class="cycle-step">
+            <span class="n">01</span>
+            <div><h4>Compressor</h4><p>Comprime o gás refrigerante, elevando sua pressão e temperatura para iniciar o ciclo.</p></div>
+          </div>
+          <div class="cycle-step">
+            <span class="n">02</span>
+            <div><h4>Condensador</h4><p>O gás libera calor para o ambiente externo e se transforma em líquido a alta pressão.</p></div>
+          </div>
+          <div class="cycle-step">
+            <span class="n">03</span>
+            <div><h4>Válvula de expansão</h4><p>Reduz a pressão do líquido, preparando-o para absorver calor no ambiente a ser refrigerado.</p></div>
+          </div>
+          <div class="cycle-step">
+            <span class="n">04</span>
+            <div><h4>Evaporador</h4><p>O líquido absorve calor do ambiente e evapora, gerando o ar frio que você sente — e reinicia o ciclo.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GASES -->
+  <section class="gases" id="gases">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Compatibilidade</div>
+        <h2>Gases que trabalhamos</h2>
+        <p>Cada sistema pede um gás específico. Identificamos o modelo antes de fechar o orçamento.</p>
+      </div>
+      <div class="gas-list">
+        <div class="gas-chip"><span class="code">R-22</span><span class="use">Splits antigos</span></div>
+        <div class="gas-chip"><span class="code">R-410A</span><span class="use">Splits atuais</span></div>
+        <div class="gas-chip"><span class="code">R-134a</span><span class="use">Freezers e geladeiras</span></div>
+        <div class="gas-chip"><span class="code">R-404A</span><span class="use">Câmaras frias</span></div>
+        <div class="gas-chip"><span class="code">R-32</span><span class="use">Splits inverter</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER -->
+  <section class="banner" style="padding:56px 0;">
+    <div class="wrap">
+      <div>
+        <h3>Câmara fria parada é prejuízo acumulando por hora.</h3>
+        <p>Plantão de emergência para comércios — chegamos com manômetro e diagnóstico, não com chute.</p>
+      </div>
+      <a href="#contato" class="btn btn-primary">Chamar agora</a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contato">
+    <div class="wrap contact-grid">
+      <div>
+        <div class="eyebrow">Fale com a gente</div>
+        <h2 style="font-size:32px; margin-bottom:24px;">Peça sua visita técnica</h2>
+
+        <div class="info-block">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 2 .7 3a2 2 0 01-.5 2.1L8 10.1a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.5c1 .3 2 .5 3 .7a2 2 0 011.6 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div>
+            <div class="k">Telefone / WhatsApp</div>
+            <div class="v mono">(62) 9 8513-3636</div>
+          </div>
+        </div>
+        <div class="info-block">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1118 0z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="10" r="3"/></svg>
+          <div>
+            <div class="k">Área de atendimento</div>
+            <div class="v">Zona sul e região metropolitana</div>
+          </div>
+        </div>
+        <div class="info-block">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 4h16v16H4z" stroke-linejoin="round"/><path d="M4 8h16M8 4v4" stroke-linecap="round"/></svg>
+          <div>
+            <div class="k">E-mail</div>
+            <div class="v">fp640328@gmail.com</div>
+          </div>
+        </div>
+
+        <div class="hours">
+          <div class="hours-row"><span>Segunda a sexta</span><span>09:00 – 17:00</span></div>
+          <div class="hours-row"><span>Sábado</span><span>09:00 – 12:00</span></div>
+          <div class="hours-row"><span>Emergência comercial</span><span>24h</span></div>
+        </div>
+      </div>
+
+      <form onsubmit="return false;">
+        <div class="field-row">
+          <div class="field">
+            <label for="nome">Nome</label>
+            <input id="nome" type="text" placeholder="Seu nome">
+          </div>
+          <div class="field">
+            <label for="tel">Telefone</label>
+            <input id="tel" type="tel" placeholder="(11) 90000-0000">
+          </div>
+        </div>
+        <div class="field">
+          <label for="servico">Tipo de serviço</label>
+          <select id="servico">
+            <option>Recarga de gás</option>
+            <option>Instalação de ar-condicionado</option>
+            <option>Manutenção preventiva</option>
+            <option>Refrigeração comercial</option>
+            <option>Emergência</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="msg">Detalhes</label>
+          <textarea id="msg" rows="4" placeholder="Conte o que está acontecendo"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar pedido</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">TAKA <span>GÁS</span></div>
+        <p>Refrigeração residencial e comercial: recarga de gás, instalação e manutenção com diagnóstico técnico de verdade.</p>
+      </div>
+      <div>
+        <h5>Serviços</h5>
+        <ul>
+          <li><a href="#servicos">Recarga de gás</a></li>
+          <li><a href="#servicos">Instalação de AC</a></li>
+          <li><a href="#servicos">Manutenção</a></li>
+          <li><a href="#servicos">Refrig. comercial</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Empresa</h5>
+        <ul>
+          <li><a href="#ciclo">Como funciona</a></li>
+          <li><a href="#gases">Gases</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contato</h5>
+        <ul>
+          <li class="mono">(62) 9 8513-3636</li>
+          <li>fp640328@gmail.com</li>
+          <li>Zona sul e região</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Taka Gás Refrigeração. Todos os direitos reservados.</span>
+      <span>CNPJ 00.000.000/0001-00</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var targets = document.querySelectorAll(
+    '.section-head, .service-card, .gas-chip, .cycle-step, .cycle-diagram, .contact-grid > div, .contact-grid > form, .banner .wrap > div, .footer-grid > div'
+  );
+  if(!('IntersectionObserver' in window)){
+    targets.forEach(function(el){ el.classList.add('in-view'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  targets.forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+</body>
+</html>
